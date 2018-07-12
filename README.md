@@ -1,15 +1,16 @@
-# **webpack-深入实践（version: 3.10.0）**
+# **webpack-深入实践** version: 3.10.0
 
 ## 安装webpack
 >npm install webpack@3.10.0 -g 
 ## 初次使用
 >helloworld.js 
+
     function helloWorld(str){
         alert(str)
     }
-    命令行输入打包
+>命令行输入打包
 
-    PS G:\webspace\webpack-in-action> webpack .\helloword.js helloword.bundle.js
+    PS G:\webspace\webpack-practice> webpack .\helloword.js helloword.bundle.js
     Hash: b9e829245f7dda432ace
     Version: webpack 3.10.0
     Time: 85ms
@@ -17,21 +18,22 @@
     helloword.bundle.js  2.52 kB       0  [emitted]  main
     [0] ./helloword.js 44 bytes {0} [built]
 
-    Asset: 打包生成的文件 size：文件大小 Chunks: 分块  Chunk Names: 快名称 [0]分块是0
+    Asset: 打包生成的文件 size：文件大小 Chunks: 分块  Chunk Names: 块名称 [0]分块是0
 
->创建test.js 并在helloworld.js中引用
+>创建test.js
 
     function test(){
         return {   
         }
     }
+>在helloworld.js中引用并打包
 
     require("./test");
     function helloWorld(str){
         alert(str)
     }
 
-    PS G:\webspace\webpack-in-action> webpack .\helloword.js helloword.bundle.js
+    PS G:\webspace\webpack-practice> webpack .\helloword.js helloword.bundle.js
     Hash: 0bc4ad62ac2ed753c7b0
     Version: webpack 3.10.0
     Time: 47ms
@@ -39,6 +41,7 @@
     helloword.bundle.js  2.67 kB       0  [emitted]  main
     [0] ./helloword.js 64 bytes {0} [built]
     [1] ./test.js 50 bytes {0} [built]
+>helloword.bundle.js
 
     /* 0 */
     /***/ (function(module, exports, __webpack_require__) {
@@ -60,17 +63,28 @@
  
     注意：__webpack_require__(1)去引用自己的依赖
 
-## 引入css文件 , 安装css-loader style-loader
-    npm install css-loader style-loader -D
+## 打包css文件 , 安装css-loader style-loader
+>npm install css-loader style-loader -D
+
     在helloworld.js中,引入 require("style-loader!css-loader!./style.css");
-    css-loader处理引入的css文件,style-loader把处理css文件插入到head标签里面
-    使用webpack命令行  webpack .\helloword.js helloword.bundle.js --module-bind 'css=style-loader!css-loader'
-    --watch 监听变化 打包 --progress 百分比读条 --display-modules 打包的模板  --display-reasons 打包原因 --colors 打包的字是有颜色的
+    
+    css-loader: 处理引入的css文件
+    style-loader: 把处理css文件插入到head标签里面
+    
+    打包方式：
+        使用webpack命令行:  webpack .\helloword.js helloword.bundle.js --module-bind 'css=style-loader!css-loader'
+
+        直接在require中引入loader: require("style-loader!css-loader!./style.css");
+
+    webpack 命令行参数说明：    
+        --watch 监听变化 打包 --progress 百分比读条 --display-modules 打包的模板  --display-reasons 打包原因 --colors 打包的字是有颜色的
 
 ## 建立项目的webpack配置文件
-    初始化目录 npm init  
-    安装webpack npm install webpack@3.10.0 --save-dev
-    建立webpack配置文件webpack.config.js --config 指定配置文件
+>初始化目录 npm init  
+>安装webpack npm install webpack@3.10.0 --save-dev
+
+    建立webpack默认配置文件webpack.config.js --config 指定配置文件
+
     修改package.json script
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
@@ -78,6 +92,8 @@
     },
 
 ## webpack.config.js
+>参数说明：//todo
+
     entry: string || Array<string> || Object
         Array: 把数组中文件打包在一起 
         栗子： entry: ['./src/script/main.js','./src/script/a.js']
@@ -136,7 +152,7 @@
         <%}%>
         结果：
 
-        template: "G:\\webspace\\webpack-in-action\\node_modules\\html-webpack-plugin\\lib\\loader.js!G:\\webspace\\webpack-in-action\\index.html"
+        template: "G:\\webspace\\webpack-practice\\node_modules\\html-webpack-plugin\\lib\\loader.js!G:\\webspace\\webpack-practice\\index.html"
         templateParameters: 
         filename: "index.html"
         hash: false    
