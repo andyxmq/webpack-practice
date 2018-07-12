@@ -92,7 +92,7 @@
     },
 
 ## webpack.config.js
->参数说明：//todo
+>参数说明：
 
     entry: string || Array<string> || Object
         Array: 把数组中文件打包在一起 
@@ -104,16 +104,19 @@
     
     output: 
         单入口起点： filename可以写成一个固定的名字，多入口则报错：Multiple assets emit to the same 
+                
     filename bundle.js
         多入口起点：  filename: [name].js (name hash(本次打包的hash值) chunkhash（自己的hash相当于文件的版本号）)
         Hash: fe630e2b0c715e94119d（hash与此相同）
         Version: webpack 3.10.0
         Time: 58ms
 
-        chunkhash: 只会在变化的文件生成新的chunkhash
+    注意： chunkhash: 只会在变化的文件生成新的chunkhash
+    
+    context: 上下文，默认指向根目录
 
     plugins: 
-        自动生成html文件： 安装 npm install html-webpack-plugin --save-dev
+        1. 自动生成html文件： 安装 npm install html-webpack-plugin --save-dev
         在webpack.config.js引入 html-webpack-plugin插件
         + var htmlWebpackPlugin = require("html-webpack-plugin");
         plugins: [
@@ -121,8 +124,7 @@
                 template: 'index.html'
             })
         ]
-        context: 上下文，默认指向根目录
-
+  
         template: 指定模板 
         filename: filename|[hash]
         inject: head|body|false
@@ -176,57 +178,57 @@
             collapseWhitespace: true    
         }
 
-    处理多页面应用：多个new htmlWebpackPlugin()多个实例
+        处理多页面应用：多个new htmlWebpackPlugin()多个实例
 
-    chunks: 对应页面需要引入的chunks
-    excludeChunks: 排除不需要的chunks
+        chunks: 对应页面需要引入的chunks
+        excludeChunks: 排除不需要的chunks
 
-    优化：在template.html中代码 即 inline模式  head中加入一下代码
-    <script type="text/javascript">
-        <%=compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source()%>
-    </script>
+        优化：在template.html中代码 即 inline模式  head中加入一下代码
+        <script type="text/javascript">
+            <%=compilation.assets[htmlWebpackPlugin.files.chunks.main.entry.substr(htmlWebpackPlugin.files.publicPath.length)].source()%>
+        </script>
 
-    <body>
-        <%for(var k in htmlWebpackPlugin.files.chunks){%>
-            <%if(k !== 'main'){%>
-                <script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[key].entry%>"></script>
+        <body>
+            <%for(var k in htmlWebpackPlugin.files.chunks){%>
+                <%if(k !== 'main'){%>
+                    <script type="text/javascript" src="<%=htmlWebpackPlugin.files.chunks[key].entry%>"></script>
+                <%}%>    
             <%}%>    
-        <%}%>    
-    </body>
+        </body>
 
     module 
-    babel-loader: http://babeljs.io/setup#installation 
-    安装babel-loader:  npm install --save-dev babel-loader babel-core
+        babel-loader: http://babeljs.io/setup#installation 
+        安装babel-loader:  npm install --save-dev babel-loader babel-core
 
-    via config
-    module: {
-        rules: [
-            { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
-        ]
-    }
+        via config
+        module: {
+            rules: [
+                { test: /\.js$/, exclude: /node_modules/, loader: "babel-loader" }
+            ]
+        }
 
-    via loader
-    var Person = require("babel!./Person.js").default;
-    new Person();
+        via loader
+        var Person = require("babel!./Person.js").default;
+        new Person();
 
-    安装npm install --save-dev babel-preset-latest
+        安装npm install --save-dev babel-preset-latest
 
-    package中配置：
-    "babel":{
-        "presets": ["latest"]
-    },
+        package中配置：
+        "babel":{
+            "presets": ["latest"]
+        },
 
-    .babelrc
-    {
-        "presets": ["latest"]
-    }
+        .babelrc
+        {
+            "presets": ["latest"]
+        }
 
-    注意： include exclude 提升打包速度
+        注意： include exclude 提升打包速度
 
 ## 处理CSS
 >  安装css-loader style-loader: npm install style-loader css-loader -D
-   加入配置 { test: /\.css$/,loader:'style-loader!css-loader'}
-
+  
+    加入配置 { test: /\.css$/,loader:'style-loader!css-loader'}
     css属性加上前缀： postcss-loader autoprefixer
     {
         test: /\.css$/,
@@ -282,7 +284,7 @@
 
     安装：npm i -D html-loader
 
-#### 处理文件及其他文件
+    2.处理文件及其他文件
     图片处理 npm install file-loader -D
     {
         test: /\.(png|jpg|gif|svg)/   ,
