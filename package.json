@@ -1,0 +1,38 @@
+{
+  "name": "webpack-in-action",
+  "version": "1.0.0",
+  "description": "webpack in action",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --config webpack.config.js --progress --display-modules --colors --display-reasons"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyxmq/webpack-.git"
+  },
+  "author": "andyxu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/andyxmq/webpack-/issues"
+  },
+  "homepage": "https://github.com/andyxmq/webpack-#readme",
+  "devDependencies": {
+    "autoprefixer": "^8.6.5",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-latest": "^6.24.1",
+    "css-loader": "^1.0.0",
+    "file-loader": "^1.1.11",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "image-webpack-loader": "^4.3.1",
+    "less": "^3.6.0",
+    "less-loader": "^4.1.0",
+    "postcss-loader": "^2.1.5",
+    "precss": "^3.1.2",
+    "style-loader": "^0.21.0",
+    "url-loader": "^1.0.1",
+    "webpack": "^3.10.0"
+  }
+}

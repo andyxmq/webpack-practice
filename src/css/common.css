@@ -1,0 +1,15 @@
+html,body{
+    padding: 0px;
+    margin: 0px;
+    background: red
+}
+
+ul,li{
+    padding: 0px;
+    margin: 0px;
+    list-style: none
+}
+
+.flex-div{
+    display: flex;
+}
