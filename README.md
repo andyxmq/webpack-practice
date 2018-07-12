@@ -221,7 +221,7 @@
         "presets": ["latest"]
     }
 
-    include exclude 提升打包速度
+    注意： include exclude 提升打包速度
 
 ## 处理CSS
 >  安装css-loader style-loader: npm install style-loader css-loader -D
