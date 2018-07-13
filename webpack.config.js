@@ -1,13 +1,17 @@
 var path = require("path");
 var htmlWebpackPlugin = require("html-webpack-plugin");
 var autoprefixer = require("autoprefixer");
-module.exports = {
-    entry: {
-        main: './src/app.js'
-    },
+
+var entry = {
+    app1: './src/views/app1.js',
+    app2: './src/views/app2.js',
+    app3: './src/views/app3.js',
+    app4: './src/views/app4.js',
+};
+var config = {
     output: {
         path: path.resolve(__dirname,"dist/"),
-        filename: 'js/[name].bundle.js',
+        filename: 'daily/js/[name].js',
     },
     module: {
         rules: [
@@ -55,6 +59,7 @@ module.exports = {
             },
             {
                 test: /\.html$/,
+                include: path.resolve(__dirname,'src/'),
                 loader: 'html-loader'
             },
             // {
@@ -73,11 +78,21 @@ module.exports = {
             }
         ]
     },
-    plugins: [
+    plugins: []
+}
+config.entry = entry;
+var plugins = [];
+for(var key in entry){
+    plugins.push(
         new htmlWebpackPlugin({
             template: 'index.html',
-            filename: '[name].html',
-            inject: "body",
+            filename: `${key}.html`,
+            chunks: `${key}`,
+            inject: "body"
         })
-    ]
+    );
 }
+
+config.plugins = [].concat(config.plugins,plugins);
+
+module.exports = config;
